@@ -234,35 +234,61 @@ button,
 
 .draggable {
   position: relative;
+  width: 100%;
+  /* Ensure full width */
+  box-sizing: border-box;
+  /* Include padding/border in width */
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 50px;
-  /* changed from fixed height to min */
-  padding: 15px;
+  padding: 5px;
+  /* Reduce padding */
   background-color: lightblue;
   border: 2px solid blue;
   z-index: 1;
   touch-action: none;
-  /* Mobile Drag Fix */
+  font-size: 0.75rem;
+  /* Smaller font for mobile */
+  line-height: 1.2;
 }
 
 .drop-zone {
   position: relative;
-  min-height: 80px;
-  /* changed to min */
+  width: 100%;
+  /* Ensure full width */
+  min-height: 50px;
+  /* Minimize height requirement */
+  height: auto;
   background-color: lightgray;
   border: 2px dashed gray;
-  margin-top: 20px;
+  margin-top: 10px;
+  /* Reduce gap */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  /* Reduce padding to maximize text space */
+  box-sizing: border-box;
+  font-size: 0.75rem;
+  /* Smaller font for mobile */
+  line-height: 1.2;
+  word-wrap: break-word;
+  /* Ensure wrapping */
 }
 
 .placeholder {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
+  /* Removed absolute positioning */
+  position: static;
+  transform: none;
+  -webkit-transform: none;
+  -ms-transform: none;
+  /* Ensure it fills the parent for centering */
+  width: 100%;
+  text-align: center;
+  padding: 5px;
+  pointer-events: none;
+  /* Let clicks pass through */
 }
 
 .dragging {

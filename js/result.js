@@ -167,5 +167,48 @@ document.addEventListener("DOMContentLoaded", () => {
     resultContainer.appendChild(reviewBtn);
   }
 
+  // PDF Export for Exam Mode - Auto download
+  const wasExamMode = localStorage.getItem("wasExamMode");
+
+  if (wasExamMode === "true") {
+    // Show a temporary status indicator
+    const statusMsg = document.createElement("div");
+    statusMsg.id = "pdf-status";
+    statusMsg.style.cssText = "position:fixed; top:20px; right:20px; background:#4CAF50; color:white; padding:15px 25px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.2); font-weight:bold; z-index:10000; animation: fadein 0.5s;";
+    statusMsg.innerHTML = "📄 PDF生成中... (自動で保存されます)";
+    document.body.appendChild(statusMsg);
+
+    // Automatically generate and download PDF after a short delay
+    setTimeout(() => {
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: `CCNA_模擬試験結果_${new Date().toISOString().split('T')[0]}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          scrollY: 0
+        },
+        jsPDF: {
+          unit: 'mm',
+          format: 'a4',
+          orientation: 'portrait'
+        }
+      };
+
+      html2pdf().set(opt).from(resultContainer).save().then(() => {
+        statusMsg.innerHTML = "✅ PDFを保存しました";
+        setTimeout(() => statusMsg.remove(), 3000);
+      }).catch(err => {
+        statusMsg.style.background = "#f44336";
+        statusMsg.innerHTML = "❌ PDF保存に失敗しました";
+        console.error("PDF generation error:", err);
+      });
+    }, 1500); // Wait 1.5 seconds for complete rendering
+
+    localStorage.removeItem("wasExamMode");
+  }
+
   localStorage.removeItem("quizAnswers");
 });

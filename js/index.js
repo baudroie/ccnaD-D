@@ -1,721 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const quizData = [
+  // quizData is now loaded from quiz_data.js
+  // const quizData = [...]; 
 
-    {
-      question: "Question 01",
-      choice: [
-        "これは、ユーザーまたはグループベースのアクセスを許可するデバイスを有効にする。",
-        "RADIUSサーバーを利用して、逆 Telnetセッションへのユーザーアクセスを許可する。",
-        "ユーザーがリモートサーバーのネットワークにアクセスした時間を記録する",
-        "ユーザーが実行できる CLIコマンドを制限する。",
-        "デバイスへのアクセスを許可する前に、ユーザーを確認する。"
-      ],
-      answer: {
-        認証: [
-          "これは、ユーザーまたはグループベースのアクセスを許可するデバイスを有効にする。",
-          "デバイスへのアクセスを許可する前に、ユーザーを確認する。"
-        ],
-        認可: [
-          "RADIUSサーバーを利用して、逆 Telnetセッションへのユーザーアクセスを許可する。",
-          "ユーザーが実行できる CLIコマンドを制限する。"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { 認証: 2, 認可: 2 }
-    },
-
-    {
-      question: "Question 02",
-      choice: [
-        "アクセスポイント",
-        "仮想インターフェース",
-        "ダイナミックインターフェース",
-        "サービスインターフェース",
-        "wireless LAN controller"
-      ],
-      answer: [
-        "wireless LAN controller",
-        "ダイナミックインターフェース",
-        "仮想インターフェース",
-        "アクセスポイント",
-        "サービスインターフェース"
-      ],
-      placeholders: [
-        "アクセスポイントを管理する",
-        "Wi-Fiデバイスに優先ネットワークへの接続を提供する",
-        "帯域外管理するために使用する",
-        "ゲスト認証に使用される",
-        "無線クライアント通信のために WLAN適用される"
-      ],
-      grouplimits: null
-    },
-
-    {
-      question: "Question 03",
-      choice: [
-        "ユーザーを識別します",
-        "ユーザーに関連付けられたパスワードを検証します",
-        "ユーザーが利用できるサービスを制限する",
-        "ユーザーが実行できるアクションを制御する",
-        "ネットワーク管理者に分析情報を提供する",
-        "ユーザーのアクティビティを記録する"
-      ],
-      answer: {
-        認証: [
-          "ユーザーを識別します",
-          "ユーザーに関連付けられたパスワードを検証します"
-        ],
-        認可: [
-          "ユーザーが利用できるサービスを制限する",
-          "ユーザーが実行できるアクションを制御する"
-        ],
-        アカウンティング: [
-          "ネットワーク管理者に分析情報を提供する",
-          "ユーザーのアクティビティを記録する"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { 認証: 2, 認可: 2, アカウンティング: 2 }
-    },
-
-    {
-      question: "Question 04",
-      choice: [
-        "IPv4アドレスと同様に公開ルーティング可能",
-        "1対1のコミュニケーションを可能にする",
-        "すべてのIPv6デバイスに必要",
-        "ネクストホップアドレスとして機能する"
-      ],
-      answer: {
-        "グローバルユニキャスト": [
-          "IPv4アドレスと同様に公開ルーティング可能",
-          "1対1のコミュニケーションを可能にする"
-        ],
-        "リンクローカル": [
-          "すべてのIPv6デバイスに必要",
-          "ネクストホップアドレスとして機能する"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { グローバルユニキャスト: 2, リンクローカル: 2 }
-    },
-
-    {
-      question: "Question 05",
-      choice: [
-        "172.28.228.144/18",
-        "172.28.228.144/21",
-        "172.28.228.144/23",
-        "172.28.228.144/25",
-        "172.28.228.144/29"
-      ],
-      answer: [
-        "172.28.228.144/23",
-        "172.28.228.144/21",
-        "172.28.228.144/25",
-        "172.28.228.144/29",
-        "172.28.228.144/18"
-      ],
-      placeholders: [
-        "172.28.228.1 - 172.28.229.254",
-        "172.28.224.1 - 172.28.231.254",
-        "172.28.228.129 - 172.28.228.254",
-        "172.28.228.145 - 172.28.228.150",
-        "172.28.192.1 - 172.28.255.254"
-      ],
-      grouplimits: null
-    },
-
-    {
-      question: "Question 06",
-      choice: [
-        "オープンAPIをサポート",
-        "バックグラウンドのデバイス構成を調整します",
-        "集中ソフトウェア管理をサポート",
-        "デバイスごとの管理に依存する",
-        "個別のソフトウェア管理を使用する",
-        "カスタムおよび非標準構成に高い柔軟性を提供"
-      ],
-      answer: {
-        "Cisco DNA センター": [
-          "オープンAPIをサポート",
-          "集中ソフトウェア管理をサポート",
-          "バックグラウンドのデバイス構成を調整します"
-        ],
-        "従来のデバイス管理": [
-          "デバイスごとの管理に依存する",
-          "個別のソフトウェア管理を使用する",
-          "カスタムおよび非標準構成に高い柔軟性を提供"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { "Cisco DNA センター": 3, "従来のデバイス管理": 3 }
-    },
-
-    {
-      question: "Question 07",
-      choice: [
-        "CLI テンプレートを使用して複数デバイスに一貫した構成を適用する",
-        "クラウド上のソフトウェア更新を監視する",
-        "NetFlowを使用してネットワーク全体の潜在的な脅威を分析し、そのトラフィックに対して適切なアクションを実行します",
-        "SSHターミナル経由で変更を実装する",
-        "デバイスごとにデバイス構成を管理する",
-        "セキュリティはファイアウォール、VPN、IPSで境界付近を管理する"
-      ],
-      answer: {
-        "CiscoDNAセンターデバイスマネジメント": [
-          "CLI テンプレートを使用して複数デバイスに一貫した構成を適用する",
-          "クラウド上のソフトウェア更新を監視する",
-          "NetFlowを使用してネットワーク全体の潜在的な脅威を分析し、そのトラフィックに対して適切なアクションを実行します"
-        ],
-        "従来のデバイスマネジメント": [
-          "SSHターミナル経由で変更を実装する",
-          "デバイスごとにデバイス構成を管理する",
-          "セキュリティはファイアウォール、VPN、IPSで境界付近を管理する"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { CiscoDNAセンターデバイスマネジメント: 3, 従来のデバイスマネジメント: 3 }
-    },
-
-    {
-      question: "Question 08",
-      choice: [
-        "172.16.2.0/24",
-        "192.168.1.0/24",
-        "192.168.2.0/24",
-        "207.165.200.244/30",
-        "207.165.200.248/30"
-      ],
-      // ※ここは「プロトコル→ネットワーク」の当てはめで、資料はRIPが2つある形式。
-      // 置き方は運用側の仕様に合わせて調整してOK（ここでは一旦あなたの形を維持）。
-      answer: [
-        "207.165.200.244/30",
-        "192.168.2.0/24",
-        "192.168.1.0/24",
-        "172.16.2.0/24"
-      ],
-      placeholders: [
-        "static",
-        "EIGRP",
-        "OSPF",
-        "RIP"
-      ],
-      grouplimits: null
-    },
-
-    {
-      question: "Question 09",
-      choice: [
-        "コントローラーを利用してネットワーク管理を処理する",
-        "ネットワークの一元管理された新機能を提供する",
-        "各デバイスで個別に変更を実装する",
-        "メンテナンスコストが高くなる"
-      ],
-      answer: {
-        "コントロールベースネットワーキング": [
-          "コントローラーを利用してネットワーク管理を処理する",
-          "ネットワークの一元管理された新機能を提供する"
-        ],
-        "従来のネットワーキング": [
-          "各デバイスで個別に変更を実装する",
-          "メンテナンスコストが高くなる"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { コントロールベースネットワーキング: 2, 従来のネットワーキング: 2 }
-    },
-
-    {
-      question: "Question 10",
-      choice: [
-        "起動時にIOSイメージをロードする際の信頼性を提供する",
-        "TCP ポート20と21を使用する",
-        "TCPを使用する",
-        "ユーザー認証を必要としない",
-        "ポート69を使用する",
-        "UDPを使用する"
-      ],
-      answer: {
-        "FTP": [
-          "起動時にIOSイメージをロードする際の信頼性を提供する",
-          "TCP ポート20と21を使用する",
-          "TCPを使用する"
-        ],
-        "TFTP": [
-          "ユーザー認証を必要としない",
-          "ポート69を使用する",
-          "UDPを使用する"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { FTP: 3, TFTP: 3 }
-    },
-
-    {
-      question: "Question 11",
-      choice: [
-        "複数のデバイスにわたって一貫した構成を展開します。",
-        "Southbound API は構成を適用するために使用されます。",
-        "分散制御プレーンが必要",
-        "分散管理プレーンが必要"
-      ],
-      answer: {
-        "コントロールベースネットワーキング": [
-          "複数のデバイスにわたって一貫した構成を展開します。",
-          "Southbound API は構成を適用するために使用されます。"
-        ],
-        "従来のネットワーキング": [
-          "分散制御プレーンが必要",
-          "分散管理プレーンが必要"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { "コントロールベースネットワーキング": 2, "従来のネットワーキング": 2 }
-    },
-
-    {
-      question: "Question 12",
-      choice: [
-        "システム間のデータ共有をサポート",
-        "RESTベースの要件をサポート",
-        "SDNコントローラーとデータプレーン間の通信",
-        "ネットワーク仮想化プロトコルをサポート"
-      ],
-      answer: {
-        "ノースバウンド API": [
-          "システム間のデータ共有をサポート",
-          "RESTベースの要件をサポート"
-        ],
-        "サウスバウンド API": [
-          "SDNコントローラーとデータプレーン間の通信",
-          "ネットワーク仮想化プロトコルをサポート"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { "ノースバウンド API": 2, "サウスバウンド API": 2 }
-    },
-
-    {
-      question: "Question 13",
-      choice: [
-        "1.1.1.1",
-        "10.10.13.126",
-        "10.10.13.129",
-        "10.10.13.150",
-        "10.10.13.209",
-        "209.165.200.30"
-      ],
-      answer: [
-        "10.10.13.126",
-        "10.10.13.129",
-        "10.10.13.150",
-        "10.10.13.209",
-        "209.165.200.30",
-        "1.1.1.1"
-      ],
-      placeholders: [
-        "Router2",
-        "Router3",
-        "Router4",
-        "Router5",
-        "Internet cloud",
-        "MPLS cloud"
-      ],
-      grouplimits: null
-    },
-
-    {
-      question: "Question 14",
-      choice: [
-        "172.16.3.128",
-        "172.16.3.64",
-        "172.16.2.128",
-        "172.16.3.192",
-        "172.16.4.0"
-      ],
-      answer: [
-        "172.16.4.0",
-        "172.16.2.128",
-        "172.16.3.64",
-        "172.16.3.128",
-        "172.16.3.192"
-      ],
-      placeholders: [
-        "255.255.254.0",
-        "255.255.255.128",
-        "255.255.255.224",
-        "255.255.255.240",
-        "255.255.255.248"
-      ],
-      grouplimits: null
-    },
-
-    {
-      question: "Question 15",
-      choice: [
-        "configure terminal",
-        "enable",
-        "enable secret $hf!@4fs8",
-        "exit",
-        "line vty 0 4",
-        "service password-encryption"
-      ],
-      answer: [
-        "enable",
-        "configure terminal",
-        "enable secret $hf!@4fs8",
-        "line vty 0 4"
-      ],
-      placeholders: ["1", "2", "3", "4"],
-      grouplimits: null
-    },
-
-    {
-      question: "Question 16",
-      choice: [
-        "ユーザーがリモート サーバー上のネットワークにアクセスした時間の長さを記録します。",
-        "TACACS+ を使用して、ネットワーク管理者が入力した設定コマンドを記録します。",
-        "RADIUS サーバーを活用して、ユーザーにリバースTelnet セッションへのアクセスを許可します。",
-        "ユーザーが実行できる CLI コマンドを制限します。"
-      ],
-      answer: {
-        "アカウンティング": [
-          "ユーザーがリモート サーバー上のネットワークにアクセスした時間の長さを記録します。",
-          "TACACS+ を使用して、ネットワーク管理者が入力した設定コマンドを記録します。"
-        ],
-        "認可": [
-          "RADIUS サーバーを活用して、ユーザーにリバースTelnet セッションへのアクセスを許可します。",
-          "ユーザーが実行できる CLI コマンドを制限します。"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { アカウンティング: 2, 認可: 2 }
-    },
-
-    {
-      question: "Question 17",
-      choice: ["802.1X", "WPA+WPA2", "Passthrough", "Web policy"],
-      answer: {
-        "レイヤー2セキュリティ": ["802.1X", "WPA+WPA2"],
-        "レイヤー3セキュリティ": ["Passthrough", "Web policy"]
-      },
-      placeholders: [],
-      grouplimits: { "レイヤー2セキュリティ": 2, "レイヤー3セキュリティ": 2 }
-    },
-
-    {
-      question: "Question 18",
-      choice: [
-        "リモートデバイス通信に SSHを使用する",
-        "基本的な構成要素には YAMLを使用する",
-        "構成プッシュジョブには TCPポート10002を使用します",
-        "基本的な構成要素に Ruby を使用",
-        "通信にはTCP 8140を使用する",
-        "基本的な構成要素はマニフェストに保存されます"
-      ],
-      answer: {
-        "Ansible": [
-          "リモートデバイス通信に SSHを使用する",
-          "基本的な構成要素には YAMLを使用する"
-        ],
-        "Chef": [
-          "構成プッシュジョブには TCPポート10002を使用します",
-          "基本的な構成要素に Ruby を使用"
-        ],
-        "Puppet": [
-          "通信にはTCP 8140を使用する",
-          "基本的な構成要素はマニフェストに保存されます"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { Ansible: 2, Chef: 2, Puppet: 2 }
-    },
-
-    {
-      question: "Question 19",
-      choice: [
-        "ログセッション統計",
-        "レコードのユーザーコマンド",
-        "ルーターへのアクセスを保護します",
-        "ユーザーの資格情報を検証します",
-        "ユーザーのアクセス権限を制限する",
-        "ユーザーが有効モードに変更できるようにする"
-      ],
-      answer: {
-        "アカウンティング": ["ログセッション統計", "レコードのユーザーコマンド"],
-        "認証": ["ルーターへのアクセスを保護します", "ユーザーの資格情報を検証します"],
-        "認可": ["ユーザーのアクセス権限を制限する", "ユーザーが有効モードに変更できるようにする"]
-      },
-      placeholders: [],
-      grouplimits: { アカウンティング: 2, 認証: 2, 認可: 2 }
-    },
-
-    {
-      question: "Question 20",
-      choice: [
-        "単一のデバイスがコアとディストリビューション層を処理する",
-        "他の選択肢よりもコストが高い",
-        "小規模ネットワーク設計に最適",
-        "ネットワークの可用性を向上",
-        "別々のデバイスがコア層とディストリビューション層を処理する"
-      ],
-      answer: {
-        "コラプストコア": [
-          "単一のデバイスがコアとディストリビューション層を処理する",
-          "他の選択肢よりもコストが高い",
-          "小規模ネットワーク設計に最適"
-        ],
-        "3層モデル": [
-          "別々のデバイスがコア層とディストリビューション層を処理する",
-          "ネットワークの可用性を向上"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { コラプストコア: 3, "3層モデル": 2 }
-    },
-
-    {
-      question: "Question 21",
-      choice: [
-        "迅速な弾力性",
-        "オンデマンドセルフサービス",
-        "リソースプーリング",
-        "測定されたサービス",
-        "広範なネットワークアクセス"
-      ],
-      answer: [
-        "測定されたサービス",
-        "リソースプーリング",
-        "オンデマンドセルフサービス",
-        "広範なネットワークアクセス",
-        "迅速な弾力性"
-      ],
-      placeholders: [
-        "プロバイダーは、使用量に応じて消費者に請求できます",
-        "プロバイダーは、共有コンピューティングリソースからCPU、メモリ、ディスクを複数の顧客に割り当てます",
-        "消費者はサービスの使用を開始または停止するタイミングを選択できます",
-        "サービスは、さまざまな種類のデバイスとネットワークから利用できます",
-        "リソースプールは需要に応じて迅速に拡張できます"
-      ],
-      grouplimits: null
-    },
-
-    {
-      question: "Question 22",
-      choice: [
-        "各接続の継続時間を記録する",
-        "ユーザーアクセスレポートをサポートする",
-        "TACACS+経由でユーザー検証を実行する",
-        "それはあなたが誰であるかを証明する"
-      ],
-      answer: {
-        "アカウンティング": [
-          "各接続の継続時間を記録する",
-          "ユーザーアクセスレポートをサポートする"
-        ],
-        "認証": [
-          "TACACS+経由でユーザー検証を実行する",
-          "それはあなたが誰であるかを証明する"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { アカウンティング: 2, 認証: 2 }
-    },
-
-    {
-      question: "Question 23",
-      choice: [
-        "一元管理された場所からリソースをプロビジョニングする",
-        "ネットワークを API経由でアプリケーションと統合出来る",
-        "ネットワークの動作と構成をより適切に制御できる",
-        "このタイプには分散管理プレーンが必要です。",
-        "新しいデバイスは物理インフラストラクチャを使用して構成される"
-      ],
-      answer: {
-        "従来のネットワーキング": [
-          "このタイプには分散管理プレーンが必要です。",
-          "一元管理された場所からリソースをプロビジョニングする"
-        ],
-        "コントロールベースネットワーキング": [
-          "新しいデバイスは物理インフラストラクチャを使用して構成される",
-          "ネットワークを API経由でアプリケーションと統合出来る",
-          "ネットワークの動作と構成をより適切に制御できる"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { コントロールベースネットワーキング: 3, 従来のネットワーキング: 2 }
-    },
-
-    {
-      question: "Question 24",
-      choice: [
-        "シーケンス番号を使用",
-        "確認パケットに依存",
-        "データの整合性を確保",
-        "リアルタイムアプリケーションをサポート",
-        "トランスポート層でコネクションレス",
-        "最小限のエラーチェック"
-      ],
-      answer: {
-        "TCP": ["シーケンス番号を使用", "確認パケットに依存", "データの整合性を確保"],
-        "UDP": ["リアルタイムアプリケーションをサポート", "トランスポート層でコネクションレス", "最小限のエラーチェック"]
-      },
-      placeholders: [],
-      grouplimits: { TCP: 3, UDP: 3 }
-    },
-
-    {
-      question: "Question 25",
-      choice: [
-        "特定の順序でデータを送信",
-        "確立された接続が必要",
-        "ウェブブラウジングをサポート",
-        "ライブストリーミングに適している",
-        "再送信はサポートされていない",
-        "パケット損失を許容する"
-      ],
-      answer: {
-        "TCP": ["特定の順序でデータを送信", "確立された接続が必要", "ウェブブラウジングをサポート"],
-        "UDP": ["ライブストリーミングに適している", "再送信はサポートされていない", "パケット損失を許容する"]
-      },
-      placeholders: [],
-      grouplimits: { TCP: 3, UDP: 3 }
-    },
-
-    {
-      question: "Question 26",
-      choice: [
-        "ダイナミック RF機能",
-        "簡単な展開プロセス",
-        "簡単なアップグレードプロセス",
-        "最適化されたユーザーパフォーマンス"
-      ],
-      answer: [
-        "ダイナミック RF機能",
-        "簡単な展開プロセス",
-        "簡単なアップグレードプロセス",
-        "最適化されたユーザーパフォーマンス"
-      ],
-      placeholders: [
-        "アクセスポイントは信号強度を自動的に調整します",
-        "コントローラーイメージはアクセスポイントに自動的に共有されます",
-        "コントローラーはユーザーとVLANの集中管理を提供します",
-        "コントローラーユーザーは全体を通してマーチマイトにロードバランシングします"
-      ],
-      grouplimits: null
-    },
-
-    {
-      question: "Question 27",
-      choice: [
-        "簡単に棟梁でき、安全な情報を取得できる",
-        "シールド付きとシールドなしのツイストペアで構成されている",
-        "長距離で減衰が増加",
-        "取り扱い時に損傷しやすい"
-      ],
-      answer: {
-        "銅線コッパー": [
-          "簡単に棟梁でき、安全な情報を取得できる",
-          "シールド付きとシールドなしのツイストペアで構成されている"
-        ],
-        "マルチモードファイバー": [
-          "長距離で減衰が増加",
-          "取り扱い時に損傷しやすい"
-        ]
-      },
-      placeholders: [],
-      grouplimits: { 銅線コッパー: 2, マルチモードファイバー: 2 }
-    },
-
-    {
-      question: "Question 28",
-      choice: [
-        "fe80:1e60:1f59:01b8:ece8:e962:4364:7",
-        "ff00:45fc:709a:d439:62cb:cdad:0a15:12",
-        "fc00:302d:1b26:dbe7:cc8b:17ac:be9f:3",
-        "2000:6a4f:74f8:f7b6:cb1a:934c:36ee:1"
-      ],
-      answer: [
-        "2000:6a4f:74f8:f7b6:cb1a:934c:36ee:1",
-        "fe80:1e60:1f59:01b8:ece8:e962:4364:7",
-        "fc00:302d:1b26:dbe7:cc8b:17ac:be9f:3",
-        "ff00:45fc:709a:d439:62cb:cdad:0a15:12"
-      ],
-      placeholders: ["Global Unicast", "Link-Local Unicast", "Unique Local", "Multicast"],
-      grouplimits: null
-    },
-
-    {
-      question: "Question 29",
-      choice: [
-        "DHCPスヌーピング",
-        "ダイナミック ARPインスペクション",
-        "IPソースガード",
-        "ストームコントロール"
-      ],
-      answer: [
-        "IPソースガード",
-        "ダイナミック ARPインスペクション",
-        "ストームコントロール",
-        "DHCPスヌーピング"
-      ],
-      placeholders: [
-        "IP設定を偽装する不正サーバー",
-        "キャッシュポイズニング",
-        "フラッド攻撃",
-        "ネットワーク上の不正クライアント"
-      ],
-      grouplimits: null
-    },
-
-    {
-      question: "Question 30",
-      choice: [
-        "3ハンドシェイクを使用",
-        "ウェブブラウジングに最適",
-        "信頼性の高い接続を提供",
-        "より高速なデータ転送",
-        "ストリーミングや VoIPに使用",
-        "コネクションレスプロトコル"
-      ],
-      answer: {
-        "TCP": ["3ハンドシェイクを使用", "ウェブブラウジングに最適", "信頼性の高い接続を提供"],
-        "UDP": ["より高速なデータ転送", "ストリーミングや VoIPに使用", "コネクションレスプロトコル"]
-      },
-      placeholders: [],
-      grouplimits: { TCP: 3, UDP: 3 }
-    },
-
-    {
-      question: "Question 31",
-      choice: ["/29", "/28", "40", "90", "25", "/27", "110"],
-      answer: {
-        "サブネットプレフィックス": ["/29", "/28", "/27"],
-        "Administrative Distance": ["90", "110"],
-        "メトリック/コスト": ["40", "25"]
-      },
-      placeholders: [],
-      grouplimits: {
-        "サブネットプレフィックス": 3,
-        "Administrative Distance": 2,
-        "メトリック/コスト": 2
-      }
-    }
-
-  ];
 
 
   /* --- Random Mode & Initialization Logic --- */
   const urlParams = new URLSearchParams(window.location.search);
-  const mode = urlParams.get("mode");
+  let mode = urlParams.get("mode");
   const qParam = urlParams.get("q");
+
+  // If accessing exam.html, always set mode to "exam"
+  if (window.location.pathname.includes("exam.html")) {
+    mode = "exam";
+    console.log("[DEBUG] Detected exam.html, mode set to:", mode);
+  }
+  console.log("[DEBUG] Initial mode:", mode);
 
   let questionOrder = [];
   let currentStep = 0; // The current step in the sequence (0 to total-1)
 
   // Initialize Order
-  if (mode === "random") {
+  if (mode === "exam") {
+    // Fresh start for exam: clear previous answers and order
+    if (qParam === null) {
+      localStorage.removeItem("quizAnswers");
+      localStorage.removeItem("quizExamOrder");
+    }
+
+    const storedOrder = localStorage.getItem("quizExamOrder");
+    if (storedOrder) {
+      questionOrder = JSON.parse(storedOrder);
+    } else {
+      questionOrder = [...Array(quizData.length).keys()];
+      // Shuffle
+      for (let i = questionOrder.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questionOrder[i], questionOrder[j]] = [questionOrder[j], questionOrder[i]];
+      }
+      localStorage.setItem("quizExamOrder", JSON.stringify(questionOrder));
+    }
+  } else if (mode === "random") {
     // 既存のランダム順序があれば取得、なければ新規作成
     const storedOrder = localStorage.getItem("quizRandomOrder");
     if (storedOrder) {
@@ -832,6 +156,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (mode === "retry") {
         localStorage.removeItem("quizRetryOrder");
       }
+      if (mode === "exam") {
+        localStorage.removeItem("quizExamOrder");
+        localStorage.setItem("wasExamMode", "true"); // Flag for PDF export
+      }
       window.location.href = "result.html";
       return;
     }
@@ -843,27 +171,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const showAnswerButton = document.getElementById("show-answer");
 
-  showAnswerButton.addEventListener("click", () => {
-    const questionObj = quizData[currentQuestionIndex];
-    const correctAnswer = questionObj.answer;
+  if (showAnswerButton) {
+    showAnswerButton.addEventListener("click", () => {
+      const questionObj = quizData[currentQuestionIndex];
+      const correctAnswer = questionObj.answer;
 
-    let message = "正解：\n";
+      let message = "正解：\n";
 
-    if (questionObj.grouplimits) {
-      // グループ形式の問題
-      for (let groupName in correctAnswer) {
-        const items = correctAnswer[groupName];
-        message += `【${groupName}】\n${items.join("\n")}\n\n`;
+      if (questionObj.grouplimits) {
+        // グループ形式の問題
+        for (let groupName in correctAnswer) {
+          const items = correctAnswer[groupName];
+          message += `【${groupName}】\n${items.join("\n")}\n\n`;
+        }
+      } else {
+        // 通常の順序問題
+        for (let i = 0; i < correctAnswer.length; i++) {
+          message += `${questionObj.placeholders[i]} → ${correctAnswer[i]}\n`;
+        }
       }
-    } else {
-      // 通常の順序問題
-      for (let i = 0; i < correctAnswer.length; i++) {
-        message += `${questionObj.placeholders[i]} → ${correctAnswer[i]}\n`;
-      }
-    }
 
-    alert(message.trim());
-  });
+      alert(message.trim());
+    });
+  }
 
 
   function loadQuestion() {
@@ -884,6 +214,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (mode === "random") {
         localStorage.removeItem("quizRandomOrder");
       }
+      if (mode === "exam") {
+        localStorage.removeItem("quizExamOrder");
+        localStorage.setItem("wasExamMode", "true"); // Flag for PDF export
+      }
       window.location.href = "result.html";
       return;
     }
@@ -891,13 +225,37 @@ document.addEventListener("DOMContentLoaded", () => {
     const questionObj = quizData[currentQuestionIndex];
 
     const questionElem = document.createElement("h2");
+    questionElem.textContent = questionObj.question;
+
+    // Hide question text in exam mode (it contains question numbers like "Question 22")
+    if (mode === "exam") {
+      questionElem.style.display = "none";
+    }
+
+    quizContainer.appendChild(questionElem);
+
     // Update Header with Progress
-    const headerTitle = document.querySelector("h1");
+    let headerTitle;
+    if (mode === "exam") {
+      headerTitle = document.getElementById("exam-title");
+      console.log("[DEBUG] Using ID selector for exam mode. Element:", headerTitle);
+    } else {
+      headerTitle = document.querySelector("h1");
+    }
+
+    console.log("[DEBUG] Updating header. mode:", mode, "currentStep:", currentStep, "h1 element:", headerTitle);
     if (headerTitle) {
-      if (mode === "random") {
-        headerTitle.textContent = `ドラッグアンドドロップ練習 (${currentStep + 1} / ${questionOrder.length})`;
+      const total = questionOrder.length || quizData.length;
+      if (mode === "exam") {
+        const newTitle = `CCNA 模擬試験 (${currentStep + 1}/${total})`;
+        console.log("[DEBUG] Setting exam header to:", newTitle);
+        headerTitle.textContent = newTitle;
+        headerTitle.innerText = newTitle; // Try both methods
+        console.log("[DEBUG] Header text after update:", headerTitle.textContent);
+      } else if (mode === "random") {
+        headerTitle.textContent = `ドラッグアンドドロップ練習 (${currentStep + 1} / ${total})`;
       } else if (mode === "retry") {
-        headerTitle.textContent = `復習モード (${currentStep + 1} / ${questionOrder.length})`;
+        headerTitle.textContent = `復習モード (${currentStep + 1} / ${total})`;
       } else {
         headerTitle.textContent = `ドラッグアンドドロップ練習 (Q${currentQuestionIndex + 1})`;
       }
@@ -1091,97 +449,124 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    const storedAnswers = JSON.parse(localStorage.getItem("quizAnswers")) || [];
+    storedAnswers.push(userAnswerData);
+    localStorage.setItem("quizAnswers", JSON.stringify(storedAnswers));
+
+    if (mode === "exam") {
+      // In Exam Mode, go to next question immediately
+      goToNextQuestion();
+      return; // Skip the feedback display logic below
+    }
+
     resultMessage.textContent = isCorrect ? "正解" : "不正解";
     resultMessage.style.color = isCorrect ? "green" : "red";
     quizContainer.after(resultMessage);
 
     checkButton.style.display = "none";
     nextButton.style.display = "block";
-    showAnswerButton.style.display = "inline-block";
-
-    const storedAnswers = JSON.parse(localStorage.getItem("quizAnswers")) || [];
-    storedAnswers.push(userAnswerData);
-    localStorage.setItem("quizAnswers", JSON.stringify(storedAnswers));
+    // Only show answer button if it exists (not in exam mode)
+    const showAnswerButton = document.getElementById("show-answer");
+    if (showAnswerButton) {
+      showAnswerButton.style.display = "inline-block";
+    }
   });
 
 
   const resetButton = document.getElementById("reset-button");
 
-  resetButton.addEventListener("click", () => {
-    const questionObj = quizData[currentQuestionIndex];
+  if (resetButton) {
+    resetButton.addEventListener("click", () => {
+      const questionObj = quizData[currentQuestionIndex];
 
-    // すべてのdrop-zoneからdraggable要素を削除
-    document.querySelectorAll(".drop-zone").forEach(zone => {
-      const draggable = zone.querySelector(".draggable");
-      if (draggable) {
-        draggable.remove();
-      }
-    });
-
-    // answer-containerを再描画
-    const answerContainer = document.querySelector(".answer-container");
-    answerContainer.innerHTML = "";
-
-    const shuffledChoices = [...questionObj.choice].sort(() => Math.random() - 0.5);
-    shuffledChoices.forEach((choice, index) => {
-      const choiceElem = document.createElement("div");
-      choiceElem.classList.add("draggable");
-      choiceElem.draggable = true;
-      choiceElem.dataset.index = index;
-      choiceElem.textContent = choice;
-
-      choiceElem.addEventListener("dragstart", (event) => {
-        event.dataTransfer.setData("text/plain", event.target.dataset.index);
-        event.target.classList.add("dragging");
+      // すべてのdrop-zoneからdraggable要素を削除
+      document.querySelectorAll(".drop-zone").forEach(zone => {
+        const draggable = zone.querySelector(".draggable");
+        if (draggable) {
+          draggable.remove();
+        }
       });
 
-      choiceElem.addEventListener("dragend", (event) => {
-        event.target.classList.remove("dragging");
+      // answer-containerを再描画
+      const answerContainer = document.querySelector(".answer-container");
+      answerContainer.innerHTML = "";
+
+      const shuffledChoices = [...questionObj.choice].sort(() => Math.random() - 0.5);
+      shuffledChoices.forEach((choice, index) => {
+        const choiceElem = document.createElement("div");
+        choiceElem.classList.add("draggable");
+        choiceElem.draggable = true;
+        choiceElem.dataset.index = index;
+        choiceElem.textContent = choice;
+
+        choiceElem.addEventListener("dragstart", (event) => {
+          event.dataTransfer.setData("text/plain", event.target.dataset.index);
+          event.target.classList.add("dragging");
+        });
+
+        choiceElem.addEventListener("dragend", (event) => {
+          event.target.classList.remove("dragging");
+        });
+
+        answerContainer.appendChild(choiceElem);
       });
 
-      answerContainer.appendChild(choiceElem);
-    });
+      // 正誤メッセージを削除
+      const allResults = document.querySelectorAll(".incorrect-message").forEach(msg => msg.remove());
 
-    // 正誤メッセージを削除
-    const allResults = document.querySelectorAll(".incorrect-message").forEach(msg => msg.remove());
+      checkButton.style.display = "block";
+      checkButton.disabled = false;
 
-    checkButton.style.display = "block";
-    checkButton.disabled = false;
+      // 選択肢の色を戻す
+      document.querySelectorAll(".draggable").forEach(elem => {
+        elem.style.color = "";
+      });
 
-    // 選択肢の色を戻す
-    document.querySelectorAll(".draggable").forEach(elem => {
-      elem.style.color = "";
-    });
+      // 必要なら「次の問題」ボタンを隠す
+      nextButton.style.display = "none";
 
-    // 必要なら「次の問題」ボタンを隠す
-    nextButton.style.display = "none";
-
-    if (allResults.length > 1) {
-      for (let i = 0; i < allResults.length - 1; i++) {
-        allResults[i].remove();  // 最後以外を削除
+      if (allResults.length > 1) {
+        for (let i = 0; i < allResults.length - 1; i++) {
+          allResults[i].remove();  // 最後以外を削除
+        }
       }
-    }
 
-    checkButton.style.display = "block";
-    checkButton.disabled = false;
-    nextButton.style.display = "none";
-    showAnswerButton.style.display = "none";
-  });
+      checkButton.style.display = "block";
+      checkButton.disabled = false;
+      nextButton.style.display = "none";
+      if (showAnswerButton) {
+        showAnswerButton.style.display = "none";
+      }
+    });
+  }
 
   const prevButton = document.getElementById("prev-button");
+  if (prevButton) {
+    prevButton.addEventListener("click", () => {
+      if (currentStep > 0) {
+        currentStep--;
+        currentQuestionIndex = questionOrder[currentStep];
+        loadQuestion();
+      }
+    });
+  }
 
-  prevButton.addEventListener("click", () => {
-    if (currentStep > 0) {
-      currentStep--;
-      currentQuestionIndex = questionOrder[currentStep];
-      loadQuestion();
-    }
-  });
+  // Define global function for exam start
+  window.startExam = function () {
+    console.log("[DEBUG] ====== startExam called ======");
+    console.log("[DEBUG] mode:", mode);
+    console.log("[DEBUG] currentStep:", currentStep);
+    loadQuestion();
+  };
 
-
-
-
-  loadQuestion();
+  // For exam mode, don't load question until start button is clicked
+  console.log("[DEBUG] Checking initial load. mode:", mode);
+  if (mode !== "exam") {
+    console.log("[DEBUG] Not exam mode, loading question immediately");
+    loadQuestion();
+  } else {
+    console.log("[DEBUG] Exam mode detected, waiting for start button");
+  }
 
   // --- Helper Functions for Touch Events ---
   let initialX = null;
