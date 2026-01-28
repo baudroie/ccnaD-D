@@ -225,15 +225,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const questionObj = quizData[currentQuestionIndex];
 
-    const questionElem = document.createElement("h2");
-    questionElem.textContent = questionObj.question;
+    // const questionElem = document.createElement("h2");
+    // questionElem.textContent = questionObj.question;
+    // questionElem.style.display = "none"; 
 
-    // Hide question text in exam mode (it contains question numbers like "Question 22")
-    if (mode === "exam") {
-      questionElem.style.display = "none";
-    }
+    // if (mode === "exam") {
+    //   questionElem.style.display = "none";
+    // }
 
-    quizContainer.appendChild(questionElem);
+    // quizContainer.appendChild(questionElem);
 
     // Update Header with Progress
     let headerTitle;
