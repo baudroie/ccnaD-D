@@ -298,3 +298,45 @@ button,
 .draggable+.placeholder {
   display: none;
 }
+
+/* Next Button Style */
+.btn-next {
+  background-color: #28a745;
+  /* Green */
+  color: white;
+  font-weight: bold;
+  padding: 10px 30px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  /* Removed display: block and margin: auto to fix alignment in flex container */
+}
+
+.btn-next:hover {
+  background-color: #218838;
+}
+
+/* Ensure Answer Container is always drop-able */
+.answer-container {
+  min-height: 60px;
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  padding: 10px;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  /* Stack vertically to maintain size */
+  gap: 10px;
+}
+
+.answer-container.drag-over {
+  background-color: #e2e6ea;
+  border-color: #adb5bd;
+}
